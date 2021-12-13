@@ -1,7 +1,7 @@
 <p>{{ someText }}</p>
 <button (click)="updateText()">update text</button>
 
-<div [@popOverState]="popupStateName">
+<div [@popOverState]="popupStateName" data-cy="text-popup">
   <p>Test animated message</p>
 </div>
 <button (click)="togglePopup()" data-cy="button-toggle-popup">Test Animations</button>

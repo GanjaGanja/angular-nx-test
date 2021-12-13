@@ -11,7 +11,22 @@ describe('test-nxapp', () => {
     getGreeting().contains('Welcome to test-nxapp!');
   });
 
-  it('should have \'toggle popup\' button', () => {
+  it('should show/hide \'text-popup\' with animation effects on \'toggle popup\' button click', () => {
     cy.get('[data-cy=button-toggle-popup]').should('exist');
+    cy.get('[data-cy=text-popup]').should('not.be.visible');
+    cy.get('[data-cy=text-popup]').should('have.css', 'opacity', '0'); // this line could be removed
+
+    cy.get('[data-cy=button-toggle-popup]').click()
+      .then(() => {
+        cy.get('[data-cy=text-popup]').should('have.css', 'opacity', '1'); // this line could be removed
+        cy.get('[data-cy=text-popup]').should('be.visible');
+      })
+      .then(() => {
+        cy.get('[data-cy=button-toggle-popup]').click()
+          .then(() => {
+            cy.get('[data-cy=text-popup]').should('have.css', 'opacity', '0'); // this line could be removed
+            cy.get('[data-cy=text-popup]').should('not.be.visible');
+          })
+      });
   });
 });
