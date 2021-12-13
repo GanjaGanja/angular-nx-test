@@ -1,7 +1,11 @@
 import { getGreeting } from '../support/app.po';
 
 describe('test-nxapp', () => {
-  beforeEach(() => cy.visit('/'));
+  beforeEach(() => {
+    cy.visit('/');
+    cy.get('[data-cy=button-toggle-popup]').as('buttonElement');
+    cy.get('[data-cy=text-popup]').as('popupElement');
+  });
 
   it('should display welcome message', () => {
     // Custom command example, see `../support/commands.ts` file
@@ -11,22 +15,14 @@ describe('test-nxapp', () => {
     getGreeting().contains('Welcome to test-nxapp!');
   });
 
-  it('should show/hide \'text-popup\' with animation effects on \'toggle popup\' button click', () => {
-    cy.get('[data-cy=button-toggle-popup]').should('exist');
-    cy.get('[data-cy=text-popup]').should('not.be.visible');
-    cy.get('[data-cy=text-popup]').should('have.css', 'opacity', '0'); // this line could be removed
+  it("should show/hide 'text-popup' on 'toggle popup' button click", () => {
+    cy.get('@buttonElement').should('exist');
+    cy.get('@popupElement').should('not.be.visible'); // it's possible to use "should('have.css', 'opacity', '0')"
 
-    cy.get('[data-cy=button-toggle-popup]').click()
-      .then(() => {
-        cy.get('[data-cy=text-popup]').should('have.css', 'opacity', '1'); // this line could be removed
-        cy.get('[data-cy=text-popup]').should('be.visible');
-      })
-      .then(() => {
-        cy.get('[data-cy=button-toggle-popup]').click()
-          .then(() => {
-            cy.get('[data-cy=text-popup]').should('have.css', 'opacity', '0'); // this line could be removed
-            cy.get('[data-cy=text-popup]').should('not.be.visible');
-          })
-      });
+    cy.get('@buttonElement').click();
+    cy.get('@popupElement').should('be.visible'); // it's possible to use "should('have.css', 'opacity', '1')"
+
+    cy.get('@buttonElement').click();
+    cy.get('@popupElement').should('not.be.visible');
   });
 });
