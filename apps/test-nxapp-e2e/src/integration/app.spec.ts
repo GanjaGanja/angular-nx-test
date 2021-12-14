@@ -35,10 +35,15 @@ describe('test-nxapp', () => {
     cy.get('@form').find('input[name=email]').type('test@e.mail');
     cy.get('@form').submit();
 
-    cy.wait('@postNewUser').then(({ request }) => {
-      // not sure if it's correct to test it like that
-      expect(request.body).to.eq('username=TestUsername&email=test%40e.mail');
-    });
+    cy.wait('@postNewUser')
+      .then(({ request }) => JSON.stringify(request.body))
+      .should(
+        'deep.equal',
+        JSON.stringify({
+          username: 'TestUsername',
+          email: 'test@e.mail',
+        })
+      );
 
     cy.visit('/');
   });

@@ -14,17 +14,17 @@
 
 <section>
   <h2>Test form</h2>
-  <form action="/api/new-user" method="POST" data-cy="form">
+  <form #myForm="ngForm" data-cy="form" (ngSubmit)="onSubmitForm(myForm.value)">
     <ul>
       <li>
         <label for="user-name-input">User Name</label>
-        <input id="user-name-input" type="text" name="username" placeholder="Your Name" required />
+        <input [(ngModel)]="form.username" id="user-name-input" type="text" name="username" placeholder="Your Name" required />
       </li>
       <li>
         <label for="name-email-input">User Email</label>
-        <input id="name-email-input" type="email" name="email" placeholder="your@email.com" required />
+        <input [(ngModel)]="form.email" id="name-email-input" type="email" name="email" placeholder="your@email.com" required />
       </li>
     </ul>
-    <button>Save User</button>
+    <button type="submit">Save User</button>
   </form>
 </section>
