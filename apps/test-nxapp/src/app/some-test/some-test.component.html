@@ -1,7 +1,30 @@
-<p>{{ someText }}</p>
-<button (click)="updateText()">update text</button>
+<section>
+  <h2>Test basic component</h2>
+  <p>{{ someText }}</p>
+  <button (click)="updateText()">update text</button>
+</section>
 
-<div [@popOverState]="popupStateName" data-cy="text-popup">
-  <p>Test animated message</p>
-</div>
-<button (click)="togglePopup()" data-cy="button-toggle-popup">Test Animations</button>
+<section>
+  <h2>Test animation</h2>
+  <div [@popOverState]="popupStateName" data-cy="text-popup">
+    <p>Test animated message</p>
+  </div>
+  <button (click)="togglePopup()" data-cy="button-toggle-popup">Test Animations</button>
+</section>
+
+<section>
+  <h2>Test form</h2>
+  <form action="/api/new-user" method="POST" data-cy="form">
+    <ul>
+      <li>
+        <label for="user-name-input">User Name</label>
+        <input id="user-name-input" type="text" name="username" placeholder="Your Name" required />
+      </li>
+      <li>
+        <label for="name-email-input">User Email</label>
+        <input id="name-email-input" type="email" name="email" placeholder="your@email.com" required />
+      </li>
+    </ul>
+    <button>Save User</button>
+  </form>
+</section>
